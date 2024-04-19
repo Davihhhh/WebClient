@@ -17,42 +17,14 @@ namespace WebClient
 {
     public partial class Form1 : Form
     {
-        public class Prodotto
-        {
-            public int Numero_Serie { get; set; }
-            public int Dispositivo { get; set; }
-        }
-        public class Casa_Produttrice
-        {
-            public string Nome { get; set; }
-            public int Data_Fondazione { get; set; }
-        }
-        public class Dispositivo
-        {
-            public int Id { get; set; }
-            public string Nome { get; set; }
-            public string Data_Rilascio { get; set; }
-            public string Marca { get; set; }
-            public string Modello { get; set; }
-            public string Casa_Produttrice { get; set; }
-        }
-        public class Sede
-        {
-            public int Id { get; set; }
-            public int Nome { get; set; }
-            public string Casa_Produttrice { get; set; }
-            public string Indirizzo { get; set; }
-        }
-
         public Form1()
         {
             InitializeComponent();
             client = new HttpClient();
         }
-        string[] tabelle = new string[] { "prodotti", "case_produttrici", "dispositivi", "sedi" };
-        string url, data;
-        string urlBase = "localhost/metodi/index.php";
-        static HttpClient client;
+        private string[] tabelle = new string[] { "prodotti", "case_produttrici", "dispositivi", "sedi" };
+        private string urlBase = "http://localhost/mysql/index.php";
+        private static HttpClient client;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -61,103 +33,178 @@ namespace WebClient
 
         private async void buttonGet_Click(object sender, EventArgs e)
         {
-            data = textBoxDataGet.Text;
-            HttpResponseMessage response = await client.GetAsync(url);
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            listView1.Items.Clear();
-            listView1.Columns.Clear();
-
-            JObject jsonObject = JObject.Parse(responseBody);
-
-            HashSet<string> uniqueKeys = new HashSet<string>();
-
-            int numCampi = 0;
-            foreach (var property in jsonObject.Properties())
+            try
             {
-                if (uniqueKeys.Contains(property.Name))
+                string tabella = textBoxDataGet.Text;
+                string id = textBoxIdGet.Text;
+                string url = "";
+                if (string.IsNullOrEmpty(tabella))
                 {
-                    break;
+                    MessageBox.Show("Inserisci almeno la tabella");
                 }
-                uniqueKeys.Add(property.Name);
-                listView1.Columns.Add(property.Name);
-                numCampi++;
-            }
-
-            int count = 0;
-            string value = "";
-            List<string> stringList = new List<string>();
-
-            // Estrae le coppie chiave-valore dall'oggetto JObject
-            foreach (var property in jsonObject.Properties())
-            {
-                value = property.Value.ToString();
-                stringList.Add(value);
-                if (count % numCampi == 0)
+                else if (string.IsNullOrEmpty(id))
                 {
-                    ListViewItem item = new ListViewItem(stringList.ToArray());
-                    listView1.Items.Add(item);
+                    url = urlBase + '/' + tabella;
+                }
+                else
+                {
+                    url = urlBase + '/' + tabella + '/' + id;
+                }
+
+                if (url == "")
+                {
+                    MessageBox.Show("URL invalido");
+                }
+                else if (CheckTabelle(tabella))
+                {
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    listView1.Items.Clear();
+                    listView1.Columns.Clear();
+
+                    JObject jsonObject = JObject.Parse(responseBody);
+
+                    HashSet<string> uniqueKeys = new HashSet<string>();
+
+                    int numCampi = 0;
+                    foreach (var property in jsonObject.Properties())
+                    {
+                        if (uniqueKeys.Contains(property.Name))
+                        {
+                            break;
+                        }
+                        uniqueKeys.Add(property.Name);
+                        listView1.Columns.Add(property.Name);
+                        numCampi++;
+                    }
+
+                    int count = 0;
+                    List<string> stringList = new List<string>();
+
+                    // Estrae le coppie chiave-valore dall'oggetto JObject
+                    foreach (var property in jsonObject.Properties())
+                    {
+                        stringList.Add(property.Value.ToString());
+                        if (count % numCampi == 0)
+                        {
+                            ListViewItem item = new ListViewItem(stringList.ToArray());
+                            listView1.Items.Add(item);
+                        }
+                    }
+
+                    listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                    listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
                 }
             }
-
-            listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private async void buttonDelete_Click(object sender, EventArgs e)
         {
-            string tab = textBoxTabDel.Text;
-            string id = textBoxIdDel.Text;
-            string url = urlBase + '/' + tab + '/' + id;
-            HttpResponseMessage response = await client.DeleteAsync(url);
-            string responseBody = await response.Content.ReadAsStringAsync();
-            MessageBox.Show(responseBody);
+            try
+            {
+                string tabella = textBoxTabDel.Text;
+                string id = textBoxIdDel.Text;
+                if (string.IsNullOrEmpty(tabella) || string.IsNullOrEmpty(id))
+                {
+                    MessageBox.Show("Inserisci tutti i campi");
+                }
+                else if (!CheckTabelle(tabella))
+                {
+                    MessageBox.Show("Tabella non accettata");
+                }
+                else
+                {
+                    string url = urlBase + '/' + tabella + '/' + id;
+                    HttpResponseMessage response = await client.DeleteAsync(url);
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show(responseBody);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelIdDel_Click(object sender, EventArgs e)
-        {
-
-        }
-
+       
         private async void buttonPut_Click(object sender, EventArgs e)
         {
-            string tabella = textBoxTabellaPP.Text;
-            StringContent body = new StringContent(textBoxDatiPP.Text);
-            string url = urlBase + '/' + tabella + '/' + body;
-            HttpResponseMessage response = await client.PutAsync(url, body);
-            string responseBody = await response.Content.ReadAsStringAsync();
-            MessageBox.Show(responseBody);
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            try
+            {
+                string tabella = textBoxTabellaPP.Text;
+                string dati = textBoxDatiPP.Text;
+                if (string.IsNullOrEmpty(tabella) || string.IsNullOrEmpty(dati))
+                {
+                    MessageBox.Show("Completa tutti i campi");
+                }
+                else if (!CheckTabelle(tabella))
+                {
+                    MessageBox.Show("Tabella non accettata");
+                }
+                else
+                {
+                    StringContent body = new StringContent(dati);
+                    string url = urlBase + '/' + tabella;
+                    HttpResponseMessage response = await client.PutAsync(url, body);
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show(responseBody);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private async void buttonPost_Click(object sender, EventArgs e)
         {
-            string tabella = textBoxTabellaPP.Text;
-            StringContent body = new StringContent(textBoxDatiPP.Text);
-            string url = urlBase + '/' + tabella + '/' + body;
-            HttpResponseMessage response = await client.PutAsync(url, body);
-            string responseBody = await response.Content.ReadAsStringAsync();
-            MessageBox.Show(responseBody);
+            try
+            {
+                string tabella = textBoxTabellaPP.Text;
+                string dati = textBoxDatiPP.Text;
+
+                if (string.IsNullOrEmpty(tabella) || string.IsNullOrEmpty(dati))
+                {
+                    MessageBox.Show("Completa tutti i campi");
+                }
+                else if (!CheckTabelle(tabella))
+                {
+                    MessageBox.Show("Tabella non accettata");
+                }
+                else
+                {
+                    string url = urlBase + '/' + tabella;
+                    StringContent body = new StringContent(dati);
+                    HttpResponseMessage response = await client.PostAsync(url, body);
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show(responseBody);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        private bool CheckTabelle(string tabella)
+        {
+            foreach(string t in tabelle)
+            {
+                if (t.Equals(tabella))
+                    return true;
+            }
+            return false;
+        }
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void labelIdDel_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

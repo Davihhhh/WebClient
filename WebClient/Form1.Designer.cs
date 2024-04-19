@@ -28,204 +28,239 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonGet = new System.Windows.Forms.Button();
-            this.buttonPost = new System.Windows.Forms.Button();
-            this.buttonPut = new System.Windows.Forms.Button();
-            this.buttonDelete = new System.Windows.Forms.Button();
-            this.textBoxDataGet = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.textBoxTabDel = new System.Windows.Forms.TextBox();
-            this.textBoxIdDel = new System.Windows.Forms.TextBox();
-            this.labelTabellaDel = new System.Windows.Forms.Label();
-            this.labelIdDel = new System.Windows.Forms.Label();
-            this.textBoxIdGet = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBoxDatiPP = new System.Windows.Forms.TextBox();
-            this.textBoxTabellaPP = new System.Windows.Forms.TextBox();
-            this.SuspendLayout();
+            buttonGet = new Button();
+            buttonPost = new Button();
+            buttonPut = new Button();
+            buttonDelete = new Button();
+            textBoxDataGet = new TextBox();
+            listView1 = new ListView();
+            textBoxTabDel = new TextBox();
+            textBoxIdDel = new TextBox();
+            labelTabellaDel = new Label();
+            labelIdDel = new Label();
+            textBoxIdGet = new TextBox();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            textBoxDatiPP = new TextBox();
+            textBoxTabellaPP = new TextBox();
+            groupBoxDelete = new GroupBox();
+            groupBoxPP = new GroupBox();
+            groupBoxGet = new GroupBox();
+            SuspendLayout();
             // 
             // buttonGet
             // 
-            this.buttonGet.Location = new System.Drawing.Point(296, 62);
-            this.buttonGet.Name = "buttonGet";
-            this.buttonGet.Size = new System.Drawing.Size(75, 23);
-            this.buttonGet.TabIndex = 0;
-            this.buttonGet.Text = "GET";
-            this.buttonGet.UseVisualStyleBackColor = true;
-            this.buttonGet.Click += new System.EventHandler(this.buttonGet_Click);
+            buttonGet.Location = new Point(296, 62);
+            buttonGet.Name = "buttonGet";
+            buttonGet.Size = new Size(75, 23);
+            buttonGet.TabIndex = 0;
+            buttonGet.Text = "GET";
+            buttonGet.UseVisualStyleBackColor = true;
+            buttonGet.Click += buttonGet_Click;
             // 
             // buttonPost
             // 
-            this.buttonPost.Location = new System.Drawing.Point(1099, 66);
-            this.buttonPost.Name = "buttonPost";
-            this.buttonPost.Size = new System.Drawing.Size(75, 23);
-            this.buttonPost.TabIndex = 1;
-            this.buttonPost.Text = "POST";
-            this.buttonPost.UseVisualStyleBackColor = true;
-            this.buttonPost.Click += new System.EventHandler(this.buttonPost_Click);
+            buttonPost.Location = new Point(1099, 66);
+            buttonPost.Name = "buttonPost";
+            buttonPost.Size = new Size(75, 23);
+            buttonPost.TabIndex = 1;
+            buttonPost.Text = "POST";
+            buttonPost.UseVisualStyleBackColor = true;
+            buttonPost.Click += buttonPost_Click;
             // 
             // buttonPut
             // 
-            this.buttonPut.Location = new System.Drawing.Point(1099, 110);
-            this.buttonPut.Name = "buttonPut";
-            this.buttonPut.Size = new System.Drawing.Size(75, 23);
-            this.buttonPut.TabIndex = 2;
-            this.buttonPut.Text = "PUT";
-            this.buttonPut.UseVisualStyleBackColor = true;
-            this.buttonPut.Click += new System.EventHandler(this.buttonPut_Click);
+            buttonPut.Location = new Point(1099, 110);
+            buttonPut.Name = "buttonPut";
+            buttonPut.Size = new Size(75, 23);
+            buttonPut.TabIndex = 2;
+            buttonPut.Text = "PUT";
+            buttonPut.UseVisualStyleBackColor = true;
+            buttonPut.Click += buttonPut_Click;
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(644, 292);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonDelete.TabIndex = 3;
-            this.buttonDelete.Text = "DELETE";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            buttonDelete.Location = new Point(670, 317);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new Size(75, 23);
+            buttonDelete.TabIndex = 3;
+            buttonDelete.Text = "DELETE";
+            buttonDelete.UseVisualStyleBackColor = true;
+            buttonDelete.Click += buttonDelete_Click;
             // 
             // textBoxDataGet
             // 
-            this.textBoxDataGet.Location = new System.Drawing.Point(30, 41);
-            this.textBoxDataGet.Name = "textBoxDataGet";
-            this.textBoxDataGet.Size = new System.Drawing.Size(235, 23);
-            this.textBoxDataGet.TabIndex = 4;
+            textBoxDataGet.Location = new Point(30, 41);
+            textBoxDataGet.Name = "textBoxDataGet";
+            textBoxDataGet.Size = new Size(235, 23);
+            textBoxDataGet.TabIndex = 4;
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(30, 127);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(364, 562);
-            this.listView1.TabIndex = 5;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            listView1.Location = new Point(30, 127);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(364, 562);
+            listView1.TabIndex = 5;
+            listView1.UseCompatibleStateImageBehavior = false;
+            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
             // textBoxTabDel
             // 
-            this.textBoxTabDel.Location = new System.Drawing.Point(511, 265);
-            this.textBoxTabDel.Name = "textBoxTabDel";
-            this.textBoxTabDel.Size = new System.Drawing.Size(100, 23);
-            this.textBoxTabDel.TabIndex = 6;
-            this.textBoxTabDel.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            textBoxTabDel.Location = new Point(537, 290);
+            textBoxTabDel.Name = "textBoxTabDel";
+            textBoxTabDel.Size = new Size(100, 23);
+            textBoxTabDel.TabIndex = 6;
+            textBoxTabDel.TextChanged += textBox2_TextChanged;
             // 
             // textBoxIdDel
             // 
-            this.textBoxIdDel.Location = new System.Drawing.Point(511, 318);
-            this.textBoxIdDel.Name = "textBoxIdDel";
-            this.textBoxIdDel.Size = new System.Drawing.Size(100, 23);
-            this.textBoxIdDel.TabIndex = 7;
-            this.textBoxIdDel.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            textBoxIdDel.Location = new Point(537, 343);
+            textBoxIdDel.Name = "textBoxIdDel";
+            textBoxIdDel.Size = new Size(100, 23);
+            textBoxIdDel.TabIndex = 7;
+            textBoxIdDel.TextChanged += textBox3_TextChanged;
             // 
             // labelTabellaDel
             // 
-            this.labelTabellaDel.AutoSize = true;
-            this.labelTabellaDel.Location = new System.Drawing.Point(511, 247);
-            this.labelTabellaDel.Name = "labelTabellaDel";
-            this.labelTabellaDel.Size = new System.Drawing.Size(43, 15);
-            this.labelTabellaDel.TabIndex = 8;
-            this.labelTabellaDel.Text = "Tabella";
-            this.labelTabellaDel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.labelTabellaDel.Click += new System.EventHandler(this.label1_Click);
+            labelTabellaDel.AutoSize = true;
+            labelTabellaDel.Location = new Point(537, 272);
+            labelTabellaDel.Name = "labelTabellaDel";
+            labelTabellaDel.Size = new Size(43, 15);
+            labelTabellaDel.TabIndex = 8;
+            labelTabellaDel.Text = "Tabella";
+            labelTabellaDel.TextAlign = ContentAlignment.TopCenter;
+            labelTabellaDel.Click += label1_Click;
             // 
             // labelIdDel
             // 
-            this.labelIdDel.AutoSize = true;
-            this.labelIdDel.Location = new System.Drawing.Point(511, 300);
-            this.labelIdDel.Name = "labelIdDel";
-            this.labelIdDel.Size = new System.Drawing.Size(18, 15);
-            this.labelIdDel.TabIndex = 9;
-            this.labelIdDel.Text = "ID";
-            this.labelIdDel.Click += new System.EventHandler(this.labelIdDel_Click);
+            labelIdDel.AutoSize = true;
+            labelIdDel.Location = new Point(537, 325);
+            labelIdDel.Name = "labelIdDel";
+            labelIdDel.Size = new Size(18, 15);
+            labelIdDel.TabIndex = 9;
+            labelIdDel.Text = "ID";
+            labelIdDel.Click += labelIdDel_Click;
             // 
             // textBoxIdGet
             // 
-            this.textBoxIdGet.Location = new System.Drawing.Point(30, 86);
-            this.textBoxIdGet.Name = "textBoxIdGet";
-            this.textBoxIdGet.Size = new System.Drawing.Size(235, 23);
-            this.textBoxIdGet.TabIndex = 10;
+            textBoxIdGet.Location = new Point(30, 86);
+            textBoxIdGet.Name = "textBoxIdGet";
+            textBoxIdGet.Size = new Size(235, 23);
+            textBoxIdGet.TabIndex = 10;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 15);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Tabella";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            label1.AutoSize = true;
+            label1.Location = new Point(30, 23);
+            label1.Name = "label1";
+            label1.Size = new Size(43, 15);
+            label1.TabIndex = 11;
+            label1.Text = "Tabella";
+            label1.TextAlign = ContentAlignment.TopCenter;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 70);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(18, 15);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "ID";
+            label2.AutoSize = true;
+            label2.Location = new Point(30, 70);
+            label2.Name = "label2";
+            label2.Size = new Size(18, 15);
+            label2.TabIndex = 12;
+            label2.Text = "ID";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(514, 109);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(28, 15);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "Dati";
+            label3.AutoSize = true;
+            label3.Location = new Point(514, 109);
+            label3.Name = "label3";
+            label3.Size = new Size(28, 15);
+            label3.TabIndex = 16;
+            label3.Text = "Dati";
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(514, 43);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 15);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "Tabella";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            label4.AutoSize = true;
+            label4.Location = new Point(514, 43);
+            label4.Name = "label4";
+            label4.Size = new Size(43, 15);
+            label4.TabIndex = 15;
+            label4.Text = "Tabella";
+            label4.TextAlign = ContentAlignment.TopCenter;
             // 
             // textBoxDatiPP
             // 
-            this.textBoxDatiPP.Location = new System.Drawing.Point(514, 127);
-            this.textBoxDatiPP.Name = "textBoxDatiPP";
-            this.textBoxDatiPP.Size = new System.Drawing.Size(527, 23);
-            this.textBoxDatiPP.TabIndex = 14;
+            textBoxDatiPP.Location = new Point(514, 127);
+            textBoxDatiPP.Name = "textBoxDatiPP";
+            textBoxDatiPP.Size = new Size(527, 23);
+            textBoxDatiPP.TabIndex = 14;
             // 
             // textBoxTabellaPP
             // 
-            this.textBoxTabellaPP.Location = new System.Drawing.Point(514, 61);
-            this.textBoxTabellaPP.Name = "textBoxTabellaPP";
-            this.textBoxTabellaPP.Size = new System.Drawing.Size(182, 23);
-            this.textBoxTabellaPP.TabIndex = 13;
+            textBoxTabellaPP.Location = new Point(514, 61);
+            textBoxTabellaPP.Name = "textBoxTabellaPP";
+            textBoxTabellaPP.Size = new Size(182, 23);
+            textBoxTabellaPP.TabIndex = 13;
+            // 
+            // groupBoxDelete
+            // 
+            groupBoxDelete.BackColor = SystemColors.GradientActiveCaption;
+            groupBoxDelete.Location = new Point(483, 237);
+            groupBoxDelete.Name = "groupBoxDelete";
+            groupBoxDelete.Size = new Size(344, 181);
+            groupBoxDelete.TabIndex = 17;
+            groupBoxDelete.TabStop = false;
+            groupBoxDelete.Text = "DELETE";
+            // 
+            // groupBoxPP
+            // 
+            groupBoxPP.BackColor = SystemColors.GradientActiveCaption;
+            groupBoxPP.Location = new Point(470, 23);
+            groupBoxPP.Name = "groupBoxPP";
+            groupBoxPP.Size = new Size(747, 143);
+            groupBoxPP.TabIndex = 18;
+            groupBoxPP.TabStop = false;
+            groupBoxPP.Text = "POST/PUT";
+            // 
+            // groupBoxGet
+            // 
+            groupBoxGet.BackColor = SystemColors.GradientActiveCaption;
+            groupBoxGet.Location = new Point(12, 3);
+            groupBoxGet.Name = "groupBoxGet";
+            groupBoxGet.Size = new Size(429, 717);
+            groupBoxGet.TabIndex = 19;
+            groupBoxGet.TabStop = false;
+            groupBoxGet.Text = "GET";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1250, 701);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBoxDatiPP);
-            this.Controls.Add(this.textBoxTabellaPP);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxIdGet);
-            this.Controls.Add(this.labelIdDel);
-            this.Controls.Add(this.labelTabellaDel);
-            this.Controls.Add(this.textBoxIdDel);
-            this.Controls.Add(this.textBoxTabDel);
-            this.Controls.Add(this.listView1);
-            this.Controls.Add(this.textBoxDataGet);
-            this.Controls.Add(this.buttonDelete);
-            this.Controls.Add(this.buttonPut);
-            this.Controls.Add(this.buttonPost);
-            this.Controls.Add(this.buttonGet);
-            this.Name = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1250, 701);
+            Controls.Add(label3);
+            Controls.Add(label4);
+            Controls.Add(textBoxDatiPP);
+            Controls.Add(textBoxTabellaPP);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(textBoxIdGet);
+            Controls.Add(labelIdDel);
+            Controls.Add(labelTabellaDel);
+            Controls.Add(textBoxIdDel);
+            Controls.Add(textBoxTabDel);
+            Controls.Add(listView1);
+            Controls.Add(textBoxDataGet);
+            Controls.Add(buttonDelete);
+            Controls.Add(buttonPut);
+            Controls.Add(buttonPost);
+            Controls.Add(buttonGet);
+            Controls.Add(groupBoxDelete);
+            Controls.Add(groupBoxPP);
+            Controls.Add(groupBoxGet);
+            Name = "Form1";
+            Load += Form1_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -247,5 +282,8 @@
         private Label label4;
         private TextBox textBoxDatiPP;
         private TextBox textBoxTabellaPP;
+        private GroupBox groupBoxDelete;
+        private GroupBox groupBoxPP;
+        private GroupBox groupBoxGet;
     }
 }
