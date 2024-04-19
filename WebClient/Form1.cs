@@ -23,7 +23,7 @@ namespace WebClient
             client = new HttpClient();
         }
         private string[] tabelle = new string[] { "prodotti", "case_produttrici", "dispositivi", "sedi" };
-        private string urlBase = "http://localhost/mysql/index.php";
+        private string urlBase = "http://localhost/metodi/php";
         private static HttpClient client;
 
         private void Form1_Load(object sender, EventArgs e)
@@ -50,6 +50,7 @@ namespace WebClient
                 {
                     url = urlBase + '/' + tabella + '/' + id;
                 }
+                MessageBox.Show(url);
 
                 if (url == "")
                 {
@@ -59,40 +60,35 @@ namespace WebClient
                 {
                     HttpResponseMessage response = await client.GetAsync(url);
                     string responseBody = await response.Content.ReadAsStringAsync();
-
                     listView1.Items.Clear();
                     listView1.Columns.Clear();
 
-                    JObject jsonObject = JObject.Parse(responseBody);
+                    JArray recordsArray = JArray.Parse(responseBody);
 
                     HashSet<string> uniqueKeys = new HashSet<string>();
 
-                    int numCampi = 0;
-                    foreach (var property in jsonObject.Properties())
+                    // Ottieni tutte le chiavi uniche
+                    foreach (JObject record in recordsArray)
                     {
-                        if (uniqueKeys.Contains(property.Name))
+                        foreach (var kvp in record)
                         {
-                            break;
-                        }
-                        uniqueKeys.Add(property.Name);
-                        listView1.Columns.Add(property.Name);
-                        numCampi++;
-                    }
-
-                    int count = 0;
-                    List<string> stringList = new List<string>();
-
-                    // Estrae le coppie chiave-valore dall'oggetto JObject
-                    foreach (var property in jsonObject.Properties())
-                    {
-                        stringList.Add(property.Value.ToString());
-                        if (count % numCampi == 0)
-                        {
-                            ListViewItem item = new ListViewItem(stringList.ToArray());
-                            listView1.Items.Add(item);
+                            uniqueKeys.Add(kvp.Key);
                         }
                     }
 
+                    // Aggiungi le colonne alla listView1 utilizzando le chiavi uniche
+                    foreach (string key in uniqueKeys)
+                    {
+                        listView1.Columns.Add(key);
+                    }
+
+                    // Aggiungi gli elementi alla listView1 utilizzando i valori dei record
+                    foreach (JObject record in recordsArray)
+                    {
+                        string[] recordValues = uniqueKeys.Select(key => (string)record.GetValue(key)).ToArray();
+                        ListViewItem item = new ListViewItem(recordValues);
+                        listView1.Items.Add(item);
+                    }
                     listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                     listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
                 }
