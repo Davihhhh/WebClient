@@ -12,6 +12,7 @@ using System.IO;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Security.Policy;
 
 namespace WebClient
 {
@@ -23,7 +24,7 @@ namespace WebClient
             client = new HttpClient();
         }
         private string[] tabelle = new string[] { "prodotti", "case_produttrici", "dispositivi", "sedi" };
-        private string urlBase = "http://localhost/metodi/php";
+        private string urlBase = "http://localhost/metodi";
         private static HttpClient client;
 
         private void Form1_Load(object sender, EventArgs e)
@@ -56,41 +57,23 @@ namespace WebClient
                 {
                     MessageBox.Show("URL invalido");
                 }
-                else if (CheckTabelle(tabella))
+                else
                 {
                     HttpResponseMessage response = await client.GetAsync(url);
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    listView1.Items.Clear();
-                    listView1.Columns.Clear();
-
-                    JArray recordsArray = JArray.Parse(responseBody);
-
-                    HashSet<string> uniqueKeys = new HashSet<string>();
-
-                    // Ottieni tutte le chiavi uniche
-                    foreach (JObject record in recordsArray)
+                    if (response.IsSuccessStatusCode)
                     {
-                        foreach (var kvp in record)
-                        {
-                            uniqueKeys.Add(kvp.Key);
-                        }
-                    }
+                        string responseBody = await response.Content.ReadAsStringAsync();
+                        MessageBox.Show(responseBody);
 
-                    // Aggiungi le colonne alla listView1 utilizzando le chiavi uniche
-                    foreach (string key in uniqueKeys)
-                    {
-                        listView1.Columns.Add(key);
-                    }
+                        var rows = JsonConvert.DeserializeObject<List<string>>(responseBody);
 
-                    // Aggiungi gli elementi alla listView1 utilizzando i valori dei record
-                    foreach (JObject record in recordsArray)
-                    {
-                        string[] recordValues = uniqueKeys.Select(key => (string)record.GetValue(key)).ToArray();
-                        ListViewItem item = new ListViewItem(recordValues);
-                        listView1.Items.Add(item);
+                        dataGridViewGet.DataSource = rows;
+
                     }
-                    listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-                    listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                    else if (response.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        MessageBox.Show(await response.Content.ReadAsStringAsync());
+                    }
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -120,7 +103,7 @@ namespace WebClient
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-       
+
         private async void buttonPut_Click(object sender, EventArgs e)
         {
             try
@@ -173,9 +156,26 @@ namespace WebClient
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
+        private async void buttonOptions_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string url = urlBase + '/';
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Options, url);
+                // Invio della richiesta OPTIONS e attesa della risposta
+                HttpResponseMessage response = await client.SendAsync(request);
+
+                // Verifica dello stato della risposta
+                if (response.IsSuccessStatusCode)
+                {
+                    richTextBoxOptions.Text = response.ToString();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
         private bool CheckTabelle(string tabella)
         {
-            foreach(string t in tabelle)
+            foreach (string t in tabelle)
             {
                 if (t.Equals(tabella))
                     return true;
@@ -202,6 +202,5 @@ namespace WebClient
         {
 
         }
-
     }
 }

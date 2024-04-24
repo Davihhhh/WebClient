@@ -33,7 +33,6 @@
             buttonPut = new Button();
             buttonDelete = new Button();
             textBoxDataGet = new TextBox();
-            listView1 = new ListView();
             textBoxTabDel = new TextBox();
             textBoxIdDel = new TextBox();
             labelTabellaDel = new Label();
@@ -48,6 +47,13 @@
             groupBoxDelete = new GroupBox();
             groupBoxPP = new GroupBox();
             groupBoxGet = new GroupBox();
+            buttonOptions = new Button();
+            groupBoxOptions = new GroupBox();
+            richTextBoxOptions = new RichTextBox();
+            dataGridViewGet = new DataGridView();
+            groupBoxGet.SuspendLayout();
+            groupBoxOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewGet).BeginInit();
             SuspendLayout();
             // 
             // buttonGet
@@ -96,15 +102,6 @@
             textBoxDataGet.Name = "textBoxDataGet";
             textBoxDataGet.Size = new Size(235, 23);
             textBoxDataGet.TabIndex = 4;
-            // 
-            // listView1
-            // 
-            listView1.Location = new Point(30, 127);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(364, 562);
-            listView1.TabIndex = 5;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
             // textBoxTabDel
             // 
@@ -225,6 +222,7 @@
             // groupBoxGet
             // 
             groupBoxGet.BackColor = SystemColors.GradientActiveCaption;
+            groupBoxGet.Controls.Add(dataGridViewGet);
             groupBoxGet.Location = new Point(12, 3);
             groupBoxGet.Name = "groupBoxGet";
             groupBoxGet.Size = new Size(429, 717);
@@ -232,11 +230,52 @@
             groupBoxGet.TabStop = false;
             groupBoxGet.Text = "GET";
             // 
+            // buttonOptions
+            // 
+            buttonOptions.Location = new Point(337, 60);
+            buttonOptions.Name = "buttonOptions";
+            buttonOptions.Size = new Size(75, 23);
+            buttonOptions.TabIndex = 20;
+            buttonOptions.Text = "OPTIONS";
+            buttonOptions.UseVisualStyleBackColor = true;
+            buttonOptions.Click += buttonOptions_Click;
+            // 
+            // groupBoxOptions
+            // 
+            groupBoxOptions.BackColor = SystemColors.GradientActiveCaption;
+            groupBoxOptions.Controls.Add(buttonOptions);
+            groupBoxOptions.Controls.Add(richTextBoxOptions);
+            groupBoxOptions.Location = new Point(483, 462);
+            groupBoxOptions.Name = "groupBoxOptions";
+            groupBoxOptions.Size = new Size(449, 190);
+            groupBoxOptions.TabIndex = 25;
+            groupBoxOptions.TabStop = false;
+            groupBoxOptions.Text = "OPTIONS";
+            // 
+            // richTextBoxOptions
+            // 
+            richTextBoxOptions.Location = new Point(19, 22);
+            richTextBoxOptions.Name = "richTextBoxOptions";
+            richTextBoxOptions.Size = new Size(312, 153);
+            richTextBoxOptions.TabIndex = 0;
+            richTextBoxOptions.Text = "";
+            // 
+            // dataGridViewGet
+            // 
+            dataGridViewGet.BackgroundColor = SystemColors.Control;
+            dataGridViewGet.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewGet.Location = new Point(18, 144);
+            dataGridViewGet.Name = "dataGridViewGet";
+            dataGridViewGet.RowTemplate.Height = 25;
+            dataGridViewGet.Size = new Size(377, 455);
+            dataGridViewGet.TabIndex = 0;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1250, 701);
+            Controls.Add(groupBoxOptions);
             Controls.Add(label3);
             Controls.Add(label4);
             Controls.Add(textBoxDatiPP);
@@ -248,7 +287,6 @@
             Controls.Add(labelTabellaDel);
             Controls.Add(textBoxIdDel);
             Controls.Add(textBoxTabDel);
-            Controls.Add(listView1);
             Controls.Add(textBoxDataGet);
             Controls.Add(buttonDelete);
             Controls.Add(buttonPut);
@@ -259,6 +297,9 @@
             Controls.Add(groupBoxGet);
             Name = "Form1";
             Load += Form1_Load;
+            groupBoxGet.ResumeLayout(false);
+            groupBoxOptions.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewGet).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -270,7 +311,6 @@
         private Button buttonPut;
         private Button buttonDelete;
         private TextBox textBoxDataGet;
-        private ListView listView1;
         private TextBox textBoxTabDel;
         private TextBox textBoxIdDel;
         private Label labelTabellaDel;
@@ -285,5 +325,13 @@
         private GroupBox groupBoxDelete;
         private GroupBox groupBoxPP;
         private GroupBox groupBoxGet;
+        private Label label5;
+        private Label label6;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private Button buttonOptions;
+        private GroupBox groupBoxOptions;
+        private RichTextBox richTextBoxOptions;
+        private DataGridView dataGridViewGet;
     }
 }
